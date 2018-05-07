@@ -1,0 +1,86 @@
+
+{% extends 'twitter_app/base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
+{#AIzaSyBbwTbCI7U6KID7D_hT78GRNqiXmee1Kzk#}
+    <div id="map"></div>
+    <script>
+
+        var map;
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {lat: -38.433859, lng: 144.593742},
+          });
+
+            {#used to show heat info#}
+            var script = document.createElement('script');
+            {#json file#}
+            script.src = '{% static '2.json' %}';
+            document.getElementsByTagName('head')[0].appendChild(script);
+
+            window.eqfeed_callback = function (results) {
+                for (var i = 0; i < results.features.length; i++){
+                    {#map info#}
+                    sentiment_info = results.features[i].properties.sentiment;
+                    {#alert(sentiment_info)#}
+
+                    var contentString = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h5 id="firstHeading" class="firstHeading">Sentiment</h5>'+
+                    '<div id="bodyContent">'+
+                    '<p>value: '+ sentiment_info +'</p>'+
+                    '</div>'+
+                    '</div>';
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    var marker = new google.maps.Marker({
+
+                        position: {lat: results.features[i].properties.coordinates[1], lng: results.features[i].properties.coordinates[0]},
+                        map: map,
+                        title: 'Sentiment Info'
+                    });
+                    marker.addListener('mouseover', function() {
+                        infowindow.open(map, marker);
+                    });
+                    marker.addListener('mouseout', function() {
+                        infowindow.close(map, marker);
+                    });
+
+                    {#block info#}
+                    var coords = results.features[i].properties.bounding_box.coordinates[0];
+                    {#alert('north:'+ coords[2][0]+'\n'+'south:'+coords[1][0]+'\n'+'east'+coords[1][1]+'\n'+'west:'+coords[0][1])#}
+                    var rectangle = new google.maps.Rectangle({
+                        editable: false,
+                        map: map,
+                        bounds: {
+                            east: coords[2][0],
+                            west: coords[1][0],
+                            north: coords[1][1],
+                            south: coords[0][1]
+                        }
+                    });
+                }
+            };
+            {#end draw block#}
+
+        }
+
+    </script>
+
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbwTbCI7U6KID7D_hT78GRNqiXmee1Kzk&libraries=visualization&callback=initMap">
+    </script>
+
+
+{% endblock %}
+
