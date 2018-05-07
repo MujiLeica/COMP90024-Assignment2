@@ -1,0 +1,119 @@
+/*google map control*/
+#map {
+    height: 100%;
+}
+
+
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+
+/*main customer*/
+body {
+    /*background: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/ruoEhTkNeiwq2lefr/videoblocks-big-data-visualization-hud-grid-corners-motion-background-analysis-of-information-visual-data-infographics-design-science-and-technology-available-in-4k-fullhd-video-render-footage_b1qfodpif_thumbnail-full01.png);*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: dodgerblue;
+    font-family: 'Gugi', cursive;
+}
+
+
+
+#main_window h3 {
+    text-shadow: 0 4px 5px dodgerblue;
+    text-transform: uppercase;
+    background: #79aec8;
+}
+
+#main_window span{
+    display: inline-block;
+    text-align: right;
+    width: auto;
+    color: black;
+}
+
+#main_window{
+    box-shadow: 10px 5px 5px black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 400px;
+    height: auto;
+    margin: 100px auto;
+    background: #D3959B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #BFE6BA, #D3959B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #BFE6BA, #D3959B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+}
+
+/*3d text control*/
+#welcome_content {
+    padding-top: 10%;
+    text-align: center;
+	color: whitesmoke;
+}
+.box {
+	display: flex;
+    align-items: center;
+	justify-content: center;
+    padding-top: 15%;
+
+}
+
+.box .inner {
+	width: 200px;
+	height: 100px;
+	line-height: 100px;
+	font-size: 2em;
+	font-family: sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.box .inner:first-child {
+	background-color: deepskyblue;
+	color: black;
+	transform-origin: left;
+	transform: perspective(300px) rotateY(-67.3deg);
+}
+
+.box .inner:last-child {
+	background-color: #D0D1D2;
+	color: #C0C0C0;
+	transform-origin: right;
+	transform: perspective(300px) rotateY(67.3deg);
+}
+
+.box .inner span {
+	position: absolute;
+	animation: marquee 5s linear infinite;
+}
+
+.box .inner:first-child span {
+	animation-delay: 2.5s;
+	left: -100%;
+}
+
+@keyframes marquee {
+	from {
+		left: 100%;
+	}
+
+	to {
+		left: -100%;
+	}
+}
+
+
+
+/*game*/
+canvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
