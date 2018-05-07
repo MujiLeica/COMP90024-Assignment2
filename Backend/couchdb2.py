@@ -4,7 +4,7 @@ from collections import defaultdict
 import time
 import datetime
 
-VIEWS = ['avgsentiment','daysum','hoursum','hoursum','locsum','lensum','hashtagsum']
+VIEWS = ['avgsentiment','daysum','hoursum','locsum','lensum','hashtagsum']
 
 while True:
     couch = couchdb.Server("http://115.146.95.234:5984")
