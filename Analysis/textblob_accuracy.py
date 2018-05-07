@@ -3,7 +3,7 @@ import nltk
 from nltk.corpus import twitter_samples
 from textblob import TextBlob
 
-#nltk has 5000 manual classified positive and negative tweets.
+#nltk has 5,000 manually classified positive and negative tweets.
 #This can be used to varify textblob's accuracy
 neg = twitter_samples.strings('negative_tweets.json')
 pos = twitter_samples.strings('positive_tweets.json')
