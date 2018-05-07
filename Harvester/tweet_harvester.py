@@ -19,16 +19,8 @@ db_tweet_name = 'tweet'
 db_user_name = 'user'
 db_address = "http://localhost:5984/"
 db_server = couchdb.Server(db_address)
-
-if db_tweet_name in db_server:
-    db_tweet = db_server[db_tweet_name]
-else:
-    db_tweet = db_server.create(db_tweet_name)
-
-if db_tweet_name in db_server:
-    db_user = db_server[db_user_name]
-else:
-    db_user = db_server.create(db_user_name)
+db_tweet = db_server[db_tweet_name]
+db_user = db_server[db_user_name]
 
 bounding_box = [113.338953078, -43.6345972634, 153.569469029, -10.6681857235]
 
