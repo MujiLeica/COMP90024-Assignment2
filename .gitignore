@@ -97,3 +97,5 @@ ENV/
 
 # mypy
 .mypy_cache/
+.DS_Store
+cloud_site/.idea/workspace.xml
