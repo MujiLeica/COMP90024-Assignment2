@@ -1,5 +1,8 @@
 function (doc) {
-    emit(doc.bounding_box, 1);
+    for(key in doc.hashtags) {
+        emit(key, 1);
+    }
+    
   }
 
 function (keys, values){
