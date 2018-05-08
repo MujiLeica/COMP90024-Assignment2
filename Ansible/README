@@ -1,6 +1,6 @@
 To automate the current system configuration, run config_whole_sys.yml with command 
     
-    ansible-playbook -i hosts.ini -u ubuntu config_whole_sys.yml
+    ansible-playbook -i ~/Ansible/inventory/hosts.ini -u ubuntu config_whole_sys.yml
 
 To create a new harvester server, run create_instance.py with command 
 
@@ -8,4 +8,4 @@ To create a new harvester server, run create_instance.py with command
 
 To configure the new harvester server, run config_harvester.yml with command 
 
-    ansible-playbook -i newhosts.ini -u ubuntu --key-file=~/Ansible/keys/nectarkey.pem config_harvester.yml
+    ansible-playbook -i ~/Ansible/inventory/newhosts.ini -u ubuntu --key-file=~/Ansible/keys/nectarkey.pem config_harvester.yml
