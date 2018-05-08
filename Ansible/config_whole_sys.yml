@@ -13,7 +13,7 @@
   roles:
     - config-harvesterserver
      
-- hosts: supportserver
+- hosts: webserver
   sudo: yes
   roles:
-    - config-supportserver
+    - config-webserver
