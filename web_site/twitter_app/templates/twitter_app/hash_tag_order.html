@@ -1,0 +1,70 @@
+{% extends 'twitter_app/base.html' %}
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+
+<div id="container" >
+
+
+        <script type="text/javascript">
+
+
+            var hash_dic = new Array();
+            var sorted_dic_key = new Array();
+
+
+            $.ajax({
+                    url: "http://115.146.95.226:5002/hashtagsum"
+                }).then(function(data) {
+                    for (var i = 0; i < data['count'] - 1; i++){
+                        if (data[i].key != null){
+                            hash_tag = data[i].key;
+                            count = data[i].value;
+                            let current_max_value = count;
+                            let current_max_key = hash_tag;
+
+                            for (var j=i+1; j < data['count']; j++){
+                                if ( data[j].key in sorted_dic_key) {
+                                    if (data[j].value > current_max_value){
+                                        current_max_value = data[j].value;
+                                        current_max_key = data[j].key;
+                                    }
+                                }
+                            }
+                            sorted_dic_key.push(current_max_key);
+                        }
+                    }
+                    alert(sorted_dic_key)
+
+                    var table = new Array();
+                    table.push('<table border=1>');
+                    table.push('<tr>');
+                    table.push('<th>Hash Tag</th>');
+                    table.push('<th>Count</th>');
+
+                    for (var i = 0; i < sorted_dic_key.length; i++){
+
+                        table.push('<tr>');
+                        table.push('<td>' + sorted_dic_key[i] + '</td>');
+                        alert(hash_dic['12apostles'])
+                        table.push('<td>'  + hash_dic[sorted_dic_key[i]] + '</td>');
+                        table.push('</tr>');
+                    }
+
+                    table.push('<table>');
+
+                    document.getElementById('table').innerHTML = table.join('');
+
+                });
+
+
+        </script>
+
+
+      <div id="table" style="border: 2px solid black; margin: auto;"></div>
+
+</div>
+
+{% endblock %}
