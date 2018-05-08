@@ -12,11 +12,6 @@
     - couchdb
     - runit
     
-- name: install django
-  pip: name={{ item }} executable=pip3
-  with_items:
-    - Django
-    
 - name: create directory
   file: 
     path="{{ item }}"
