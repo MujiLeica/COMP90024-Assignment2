@@ -1,0 +1,9 @@
+- name: install dependencies
+  pip: name={{ item }} executable=pip3
+  with_items: 
+    - couchdb
+    - flask
+    - flask-jsonpify
+    - flask-sqlalchemy
+    - flask-restful
+    

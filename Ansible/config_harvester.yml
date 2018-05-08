@@ -1,0 +1,6 @@
+- hosts: harvesterserver
+  sudo: yes
+  roles:
+     - common
+     - config-harvesterserver
+     

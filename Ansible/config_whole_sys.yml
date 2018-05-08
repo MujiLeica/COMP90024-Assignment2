@@ -1,0 +1,19 @@
+- hosts: dbserver, harvesterserver, supportserver
+  sudo: yes
+  roles:
+    - common
+
+- hosts: dbserver
+  sudo: yes
+  roles:
+    - config-dbserver
+
+- hosts: harvesterserver
+  sudo: yes
+  roles:
+    - config-harvesterserver
+     
+- hosts: supportserver
+  sudo: yes
+  roles:
+    - config-supportserver
