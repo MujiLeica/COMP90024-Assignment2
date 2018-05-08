@@ -25,7 +25,7 @@ if db_tweet_name in db_server:
 else:
     db_tweet = db_server.create(db_tweet_name)
 
-if db_tweet_name in db_server:
+if db_user_name in db_server:
     db_user = db_server[db_user_name]
 else:
     db_user = db_server.create(db_user_name)
