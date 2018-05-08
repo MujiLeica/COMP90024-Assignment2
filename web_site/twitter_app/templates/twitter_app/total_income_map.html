@@ -284,14 +284,12 @@
 
 
         $.ajax({
-            url: 'http://115.146.95.226:5002/locsum'
+            url: 'http://115.146.95.226:5002/avgsentiment'
         }).then(function (data) {
             for (var i = 0; i < data['count']; i++){
                 region = data[i].key;
                 value = data[i].value;
-                alert(region.search(e.feature.getProperty('sa2_name16'), i))
-
-
+                alert('AB'.search('a', i))
             }
         });
 

@@ -28,3 +28,11 @@ class MapTemplateView(TemplateView):
 
 class HashTagTemplateView(TemplateView):
     template_name = 'twitter_app/hash_tag_order.html'
+
+
+class LocationTemplateView(TemplateView):
+    template_name = 'twitter_app/region_order.html'
+
+
+class LengthTemplateView(TemplateView):
+    template_name = 'twitter_app/avg_length_order.html'

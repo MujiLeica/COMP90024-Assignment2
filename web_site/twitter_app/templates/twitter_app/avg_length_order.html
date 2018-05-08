@@ -11,19 +11,22 @@
         <script type="text/javascript">
 
 
-            var hash_dic = new Array();
+            var avg_length_dic = new Array();
             $.ajax({
-                    url: "http://115.146.95.226:5002/hashtagsum"
+                    url: "http://115.146.95.226:5002/lensum"
                 }).then(function(data) {
                     for (var i = 0; i < data['count']; i++){
                         if (data[i].key != null){
-                            hash_tag = data[i].key;
+
+                            avg_length = data[i].key;
                             count = data[i].value;
-                            hash_dic[hash_tag] = count;
+
+                            avg_length_dic[avg_length] = count;
                         }
                     }
-                    var items = Object.keys(hash_dic).map(function(key) {
-                        return [key, hash_dic[key]];
+
+                    var items = Object.keys(avg_length_dic).map(function(key) {
+                        return [key, avg_length_dic[key]];
                     });
 
                     items.sort(function(first, second) {
@@ -33,7 +36,7 @@
                     var table = new Array();
                     table.push('<table border=1>');
                     table.push('<tr>');
-                    table.push('<th>Hash Tag</th>');
+                    table.push('<th>Average Length Of Tweet</th>');
                     table.push('<th>Count</th>');
 
                     for (var i = 0; i < items.length; i++){
