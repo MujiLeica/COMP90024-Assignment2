@@ -58,9 +58,21 @@
         #data-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
         #data-label:after { content: ':' }
 
-        #local-value { font-size: 2.0em; font-weight: bold }
-        #local-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
-        #local-label:after { content: ':' }
+        #avg-value { font-size: 2.0em; font-weight: bold }
+        #avg-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
+        #avg-label:after { content: ':' }
+
+        #boxsum-value { font-size: 2.0em; font-weight: bold }
+        #boxsum-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
+        #boxsum-label:after { content: ':' }
+
+        #age_20_to_24-value { font-size: 2.0em; font-weight: bold }
+        #age_20_to_24-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
+        #age_20_to_24-label:after { content: ':' }
+
+        #age_25_to_29-value { font-size: 2.0em; font-weight: bold }
+        #age_25_to_29-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
+        #age_25_to_29-label:after { content: ':' }
 
         #data-caret { margin-left: -5px; display: none; font-size: 14px; width: 14px}
     </style>
@@ -90,9 +102,19 @@
       <span id="data-value"></span>
       <br>
 
-      <label id="local-label" for="local-value"></label>
-      <span id="local-value"></span>
+      <label id="avg-label" for="avg-value"></label>
+      <span id="avg-value"></span>
+      <br>
+      <label id="boxsum-label" for="boxsum-value"></label>
+      <span id="boxsum-value"></span>
 
+      <br>
+      <label id="age_20_to_24-label" for="age_20_to_24-value"></label>
+      <span id="age_20_to_24-value"></span>
+
+      <br>
+      <label id="age_25_to_29-label" for="age_25_to_29-value"></label>
+      <span id="age_25_to_29-value"></span>
     </div>
 
 
@@ -185,6 +207,9 @@
 
                 var stateId = censusData.features[i].properties.sa2_main16;
 
+                var polygon = censusData.features[i].geometry.coordinates[0];
+
+
                 // keep track of min and max values
                 if (censusVariable < censusMin) {
                 censusMin = censusVariable;
@@ -197,6 +222,10 @@
                 map.data
                 .getFeatureById(stateId)
                 .setProperty('census_variable', censusVariable);
+
+                map.data
+                .getFeatureById(stateId)
+                .setProperty('polygon', polygon);
 
           }
 
@@ -264,6 +293,26 @@
         };
       }
 
+      {#inside#}
+        function inside(point, vs) {
+            // ray-casting algorithm based on
+            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+
+            var x = point[0], y = point[1];
+
+            var inside = false;
+            for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                var xi = vs[i][0], yi = vs[i][1];
+                var xj = vs[j][0], yj = vs[j][1];
+
+                var intersect = ((yi > y) != (yj > y))
+                    && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+
+            return inside;
+        }
+
       /**
        * Responds to the mouse-in event on a map shape (state).
        *
@@ -283,20 +332,91 @@
             e.feature.getProperty('census_variable').toLocaleString() + ' person';
 
 
+
+        var currentPolygon = e.feature.getProperty('polygon');
+        var tweet_avg_count = 0;
+        var tweet_total_count = 0;
+        var age_20_24_parent = 0;
+        var age_25_29_parent = 0;
+{#avg#}
         $.ajax({
             url: 'http://115.146.95.226:5002/avgsentiment'
         }).then(function (data) {
             for (var i = 0; i < data['count']; i++){
-                region = data[i].key;
-                value = data[i].value;
-                alert('AB'.search('a', i))
+                if (data[i].key != null){
+                    box_range = data[i].key;
+                    value = data[i].value;
+                    hor_one = box_range[0][0][0];
+                    hor_two = box_range[0][2][0];
+                    ver_one = box_range[0][0][1];
+                    ver_two = box_range[0][1][1];
+                    middle = [(hor_one+hor_two)/2, (ver_one+ver_two)/2];
+
+                    if (inside(middle, currentPolygon)){
+                        tweet_avg_count += value;
+                    }
+                }
             }
+                document.getElementById('avg-label').textContent = 'Avgsentiment';
+
+                document.getElementById('avg-value').textContent = tweet_avg_count;
+
+                {#document.getElementById('data-box').style.display = 'block';#}
+        });
+{#boxsum#}
+        $.ajax({
+            url: '{% static 'json/boxsum.json' %}'
+        }).then(function (data) {
+            for (var i = 0; i < data['count']; i++){
+                if (data[i].key != null){
+                    box_range = data[i].key;
+                    value = data[i].value;
+                    hor_one = box_range[0][0][0];
+                    hor_two = box_range[0][2][0];
+                    ver_one = box_range[0][0][1];
+                    ver_two = box_range[0][1][1];
+                    middle = [(hor_one+hor_two)/2, (ver_one+ver_two)/2];
+
+                    if (inside(middle, currentPolygon)){
+                        tweet_total_count += value;
+                    }
+                }
+            }
+                document.getElementById('boxsum-label').textContent = 'Total Count';
+
+                document.getElementById('boxsum-value').textContent = tweet_total_count;
+
+
+        });
+{#child#}
+        $.ajax({
+            url: '{% static 'json/parent_age_child_num.json' %}'
+        }).then(function (data) {
+            for (var i = 0; i < data['features'].length; i++){
+
+                var region_code = data.features[i].properties.sa1_main16.slice(0,9);
+                var age_20_to_24_value = data.features[i].properties['1p_20_24_y'];
+                var age_25_to_29_value = data.features[i].properties['2p_25_29_y'];
+
+
+
+                if (region_code === e.feature.getProperty('sa2_main16')){
+                    age_20_24_parent += age_20_to_24_value;
+                    age_25_29_parent += age_25_to_29_value;
+                }
+
+            }
+                document.getElementById('age_20_to_24-label').textContent = 'Age 20-24 parent Number';
+
+                document.getElementById('age_20_to_24-value').textContent = age_20_24_parent;
+
+                document.getElementById('age_25_to_29-label').textContent = 'Age 25-29 parent Number';
+
+                document.getElementById('age_25_to_29-value').textContent = age_25_29_parent;
+
         });
 
-        document.getElementById('local-label').textContent = 'Twitter';
 
-        document.getElementById('local-value').textContent =
-            e.feature.getProperty('census_variable').toLocaleString();
 
         document.getElementById('data-box').style.display = 'block';
 
