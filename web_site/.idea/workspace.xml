@@ -11,20 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="total_income_map.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="total_income_map.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/total_income_map.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="team.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/team.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+            <state relative-caret-position="3523">
+              <caret line="400" selection-start-line="400" selection-end-line="400" />
             </state>
           </provider>
         </entry>
@@ -60,12 +51,12 @@
         <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/hoursum_table.html" />
         <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/daysum_table.html" />
         <option value="$PROJECT_DIR$/twitter_app/static/js/jquery.min.js" />
-        <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/total_income_map.html" />
         <option value="$PROJECT_DIR$/twitter_app/static/css/twe_style.css" />
         <option value="$PROJECT_DIR$/templates/twitter_app/base.html" />
         <option value="$PROJECT_DIR$/twitter_app/static/js/loader.js" />
         <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/map.html" />
         <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/team.html" />
+        <option value="$PROJECT_DIR$/twitter_app/templates/twitter_app/total_income_map.html" />
       </list>
     </option>
   </component>
@@ -221,7 +212,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -389,13 +379,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/avg_length_order.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="83" selection-start-line="8" selection-start-column="83" selection-end-line="8" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/hash_tag_order.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
@@ -470,17 +453,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/total_income_map.html">
+    <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/avg_length_order.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        <state relative-caret-position="120">
+          <caret line="8" column="83" selection-start-line="8" selection-start-column="83" selection-end-line="8" selection-end-column="83" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/team.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_app/templates/twitter_app/total_income_map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3523">
+          <caret line="400" selection-start-line="400" selection-end-line="400" />
         </state>
       </provider>
     </entry>

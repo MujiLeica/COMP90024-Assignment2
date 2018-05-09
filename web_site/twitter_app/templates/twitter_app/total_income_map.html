@@ -346,7 +346,7 @@
             for (var i = 0; i < data['count']; i++){
                 if (data[i].key != null){
                     box_range = data[i].key;
-                    value = data[i].value;
+                    avg_value = data[i].value;
                     hor_one = box_range[0][0][0];
                     hor_two = box_range[0][2][0];
                     ver_one = box_range[0][0][1];
@@ -354,7 +354,7 @@
                     middle = [(hor_one+hor_two)/2, (ver_one+ver_two)/2];
 
                     if (inside(middle, currentPolygon)){
-                        tweet_avg_count += value;
+                        tweet_avg_count += avg_value;
                     }
                 }
             }
@@ -371,7 +371,7 @@
             for (var i = 0; i < data['count']; i++){
                 if (data[i].key != null){
                     box_range = data[i].key;
-                    value = data[i].value;
+                    box_value = data[i].value;
                     hor_one = box_range[0][0][0];
                     hor_two = box_range[0][2][0];
                     ver_one = box_range[0][0][1];
@@ -379,7 +379,7 @@
                     middle = [(hor_one+hor_two)/2, (ver_one+ver_two)/2];
 
                     if (inside(middle, currentPolygon)){
-                        tweet_total_count += value;
+                        tweet_total_count += box_value;
                     }
                 }
             }
@@ -398,7 +398,6 @@
                 var region_code = data.features[i].properties.sa1_main16.slice(0,9);
                 var age_20_to_24_value = data.features[i].properties['1p_20_24_y'];
                 var age_25_to_29_value = data.features[i].properties['2p_25_29_y'];
-
 
 
                 if (region_code === e.feature.getProperty('sa2_main16')){
