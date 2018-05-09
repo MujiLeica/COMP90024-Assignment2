@@ -11,7 +11,7 @@
     <!-- font -->
     <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
     {#    style script#}
-    <link rel="stylesheet" type="text/css" href="{% static "css/twe_style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/tweet_style.css" %}">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -33,12 +33,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 {#            left nav#}
             <ul class="navbar-nav mr-auto">
+{#                home#}
                 <li class="nav-item active">
                     <a class="navbar-brand" href="{% url 'home_page' %}" id="home_button">Home</a>
                 </li>
+{#                map#}
                 <li class="nav-item">
                     <a class="navbar-brand" href="{% url 'twitter_app:map_page' %}">Map</a>
                 </li>
+
+
+
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tweet Order
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="navbar-brand" href="{% url 'twitter_app:hash_tag' %}">Hash Tag Order</a>
+                        <a class="navbar-brand" href="{% url 'twitter_app:region' %}">Region Order</a>
+                        <a class="navbar-brand" href="{% url 'twitter_app:avg_length' %}">Average Length Order</a>
+                    </div>
+                </li>
+
 
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,9 +66,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'twitter_app:map' %}">Map</a>
-                </li>
+
 
             </ul>
 

@@ -1,0 +1,63 @@
+{% extends 'twitter_app/base.html' %}
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+
+<div id="container" >
+        <script type="text/javascript" src="{% static 'js/echarts.js' %}"></script>
+
+
+        <script type="text/javascript">
+
+
+            var hash_dic = new Array();
+            $.ajax({
+                    url: "http://115.146.95.226:5002/hashtagsum"
+                }).then(function(data) {
+                    for (var i = 0; i < data['count']; i++){
+                        if (data[i].key != null){
+                            hash_tag = data[i].key;
+                            count = data[i].value;
+                            hash_dic[hash_tag] = count;
+                        }
+                    }
+                    var items = Object.keys(hash_dic).map(function(key) {
+                        return [key, hash_dic[key]];
+                    });
+
+                    items.sort(function(first, second) {
+                        return second[1] - first[1];
+                    });
+
+                    var table = new Array();
+                    table.push('<table border=1>');
+                    table.push('<tr>');
+                    table.push('<th>Hash Tag</th>');
+                    table.push('<th>Count</th>');
+
+                    for (var i = 0; i < items.length; i++){
+
+                        table.push('<tr>');
+                        table.push('<td>' + items[i][0] + '</td>');
+
+                        table.push('<td>'  + items[i][1] + '</td>');
+                        table.push('</tr>');
+                    }
+
+                    table.push('<table>');
+
+                    document.getElementById('table').innerHTML = table.join('');
+
+                });
+
+
+        </script>
+
+
+      <div id="table" style="border: 2px solid black; margin: auto;"></div>
+
+</div>
+
+{% endblock %}

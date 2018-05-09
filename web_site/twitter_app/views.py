@@ -8,10 +8,6 @@ class HomeTemplateView(TemplateView):
     template_name = 'twitter_app/home.html'
 
 
-class MapTemplateView(TemplateView):
-    template_name = 'twitter_app/map1.html'
-
-
 class TeamTemplateView(TemplateView):
     template_name = 'twitter_app/team.html'
 
@@ -26,4 +22,17 @@ class HourSumTableTemplateView(TemplateView):
 
 
 class MapTemplateView(TemplateView):
-    template_name = 'twitter_app/map.html'
+    template_name = 'twitter_app/total_income_map.html'
+
+
+
+class HashTagTemplateView(TemplateView):
+    template_name = 'twitter_app/hash_tag_order.html'
+
+
+class LocationTemplateView(TemplateView):
+    template_name = 'twitter_app/region_order.html'
+
+
+class LengthTemplateView(TemplateView):
+    template_name = 'twitter_app/avg_length_order.html'

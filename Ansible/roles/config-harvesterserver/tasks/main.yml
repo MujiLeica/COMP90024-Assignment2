@@ -1,0 +1,19 @@
+- name: install required packages
+  apt: name={{ item }} state=installed
+  with_items:
+    - couchdb
+
+- name: install dependencies
+  pip: name={{ item }}
+  with_items:
+    - tweepy
+    - couchdb
+    
+- name: install dependencies
+  pip: name={{ item }} executable=pip3
+  with_items: 
+    - numpy
+    - couchdb
+    - TextBlob
+    - Tensorflow
+    

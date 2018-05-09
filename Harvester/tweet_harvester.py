@@ -1,6 +1,7 @@
 import tweepy
 import couchdb
 import json
+import math
 from urllib3.exceptions import ProtocolError
 
 consumer_key = "c67rYQVxBfyQAqrN9oMes59PB"
@@ -25,13 +26,28 @@ if db_tweet_name in db_server:
 else:
     db_tweet = db_server.create(db_tweet_name)
 
-if db_tweet_name in db_server:
+if db_user_name in db_server:
     db_user = db_server[db_user_name]
 else:
     db_user = db_server.create(db_user_name)
 
 bounding_box = [113.338953078, -43.6345972634, 153.569469029, -10.6681857235]
 
+num_harvester = 2
+
+harvester_code = 0
+
+def create_sub_bbox(bounding_box, num):
+    sub_bbox = []
+    interval = math.floor((bounding_box[2] - bounding_box[0])/num*100000000)/100000000
+    for i in range(num):
+        sub_bbox.append([bounding_box[0]+interval*i, bounding_box[1], bounding_box[0]+interval*(i+1), bounding_box[3]])
+
+    sub_bbox[num-1][2]=bounding_box[2]
+
+    return sub_bbox
+
+sub_bbox = create_sub_bbox([113.338953078, -43.6345972634, 153.569469029, -10.6681857235], num_harvester)
 
 class MyStreamListener(tweepy.StreamListener):
 
@@ -49,8 +65,8 @@ class MyStreamListener(tweepy.StreamListener):
                 for status in tweepy.Cursor(api.user_timeline, screen_name=tweet["user"]["screen_name"], tweet_mode='extended').items():
                     user_tweet = status._json
                     if user_tweet["coordinates"] is not None:
-                        if bounding_box[2] >= user_tweet["coordinates"]["coordinates"][0] >= bounding_box[0] \
-                                and bounding_box[3] >= user_tweet["coordinates"]["coordinates"][1] >= bounding_box[1]:
+                        if sub_bbox[harvester_code][2] > user_tweet["coordinates"]["coordinates"][0] > sub_bbox[harvester_code][0] \
+                                and sub_bbox[harvester_code][3] > user_tweet["coordinates"]["coordinates"][1] > sub_bbox[harvester_code][1]:
                             doc_id = user_tweet["id_str"]
                             if doc_id not in db_tweet:
                                 db_tweet[doc_id] = {"tweet": tweet}
@@ -75,6 +91,6 @@ myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
 
 while True:
     try:
-        myStream.filter(locations=bounding_box)
+        myStream.filter(locations=sub_bbox[harvester_code])
     except ProtocolError:
         continue

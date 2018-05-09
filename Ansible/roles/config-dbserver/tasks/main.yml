@@ -1,0 +1,52 @@
+- name: enable the Apache CouchDB package repository
+  shell: echo "deb https://apache.bintray.com/couchdb-deb xenial main" \
+    | sudo tee -a /etc/apt/sources.list
+  
+- name: installing the Apache CouchDB packages
+  shell: curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc \
+    | sudo apt-key add - 
+ 
+- name: install required packages
+  apt: name={{ item }} state=installed
+  with_items:
+    - couchdb
+    - runit
+    
+- name: create directory
+  file: 
+    path="{{ item }}"
+    state=directory
+  with_items:
+    - /var/log/couchdb 
+    - /etc/sv/couchdb
+    - /etc/sv/couchdb/log
+  
+- name: change permission
+  file: 
+    path=/var/log/couchdb 
+    owner=ubuntu 
+    group=ubuntu
+    
+- name: create script
+  copy:
+    src: /roles/config-dbserver/scripts/log_run
+    dest: /etc/sv/couchdb/log/run
+
+- name: create script
+  copy:
+    src: /roles/config-dbserver/scripts/run
+    dest: /etc/sv/couchdb/run
+   
+- name: make scripts executable
+  file:
+    dest="{{ item }}"
+    mode=u+x
+  with_items:
+    - /etc/sv/couchdb/log/run
+    - /etc/sv/couchdb/run
+
+- name: Create symlink
+  file: 
+    src=/etc/sv/couchdb/
+    dest=/etc/service/couchdb
+    state=link

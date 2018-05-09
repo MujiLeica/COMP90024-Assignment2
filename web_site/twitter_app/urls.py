@@ -16,4 +16,10 @@ urlpatterns = [
     url(r'^hour_sum_table/$', views.HourSumTableTemplateView.as_view(), name='hour_sum_table'),
 
     url(r'^map/$', views.MapTemplateView.as_view(), name='map'),
+
+    url(r'^hash_tag/$', views.HashTagTemplateView.as_view(), name='hash_tag'),
+
+    url(r'^region/$', views.LocationTemplateView.as_view(), name='region'),
+
+    url(r'^avg_length/$', views.LengthTemplateView.as_view(), name='avg_length'),
 ]
