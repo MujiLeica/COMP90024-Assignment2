@@ -1,12 +1,12 @@
 nohup python3 hourlycouchdbdump.py >> couchdoump.out &
 nohup python3 couchapi.py >> couchapi.out &
 
-在ansible里装python和pip:
+
 sudo apt-get update
 sudo apt-get install python3
 sudo apt-get install pip3
 
-装这两个包:
+
 pip3 install flask flask-jsonpify flask-sqlalchemy flask-restful
 pip install couchdb
 
